@@ -1,8 +1,8 @@
 function [dist, path] = aStar(graph, emissions, startNode, endNode, locations, maxCarbon) % functia A* in functie de costuri si emisii de carbon
 
-    N = size(graph, 1); % numar total de aeroporturi
+    N = size(graph, 1); % Numar total de aeroporturi
     
-    % initializare
+    %Initializare
     dist = inf(1, N);
     dist(startNode) = 0;
     prev = -ones(1, N);
@@ -11,11 +11,11 @@ function [dist, path] = aStar(graph, emissions, startNode, endNode, locations, m
     openSet = startNode;
 
       while ~isempty(openSet)
-        % anodul cu cel mai mic fScore
+        % a
         [~, idx] = min(fScore(openSet));
         current = openSet(idx);
 
-        % daca am ajuns la destinatie, reconstuim calea
+        % Dacă am ajuns la destinație, reconstruim calea
         if current == endNode
             path = [];
             while current ~= -1
@@ -25,10 +25,10 @@ function [dist, path] = aStar(graph, emissions, startNode, endNode, locations, m
             return;
         end
         
-        % eliminare nod curent din OpenSet
+        % Eliminăm nodul curent din openSet
         openSet(idx) = [];
 
-        % parcurgere vecini nod curent
+        % Parcurgem vecinii nodului curent
         for neighbor = 1:N
             if graph(current, neighbor) > 0 && emissions(current, neighbor) <= maxCarbon
                 tentative_gScore = dist(current) + graph(current, neighbor);
@@ -46,6 +46,6 @@ function [dist, path] = aStar(graph, emissions, startNode, endNode, locations, m
         end
     end
     
-    % in cazul in care nu exista drum 
+    % Dacă nu există drum
     path = [];
 end
